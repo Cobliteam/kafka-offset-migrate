@@ -29,7 +29,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -s SRC_KAFKA, --src-kafka SRC_KAFKA
-                        The kafka adresse list from where get ofssets.
+                        The kafka address list from where get offsets.
   -d DST_KAFKA, --dst-kafka DST_KAFKA
                         The kafka adresse list to where put ofssets.
   -i SRC_ZK, --src-zk SRC_ZK
