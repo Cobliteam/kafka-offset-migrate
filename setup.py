@@ -19,4 +19,4 @@ setup(
     entry_points={
         'console_scripts': ['kafka-offset-migrate=kafka_offset_migrate.main:main']
     },
-keywords='kafkas offset migrate')
+    keywords='kafkas offset migrate')
