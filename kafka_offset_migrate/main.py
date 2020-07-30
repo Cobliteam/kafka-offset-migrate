@@ -37,7 +37,7 @@ def parse_command_line():
 
     ## k2k
     kafka_to_kafka_cmd = cmds.add_parser('k2k',
-                                         help='k2k will fetch offsetsi from '
+                                         help='k2k will fetch offsets from '
                                               'src kafka and set then into dst'
                                               'kafka.')
 

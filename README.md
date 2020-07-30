@@ -19,7 +19,7 @@ Simple tool to migrate offsets between kafkas.
 
 positional arguments:
   {k2k,z2z,z2k}         sub-command help
-    k2k                 k2k will fetch offsetsi from src kafka and set then
+    k2k                 k2k will fetch offsets from src kafka and set then
                         into dstkafka.
     z2z                 z2z will fetch offsets from src zookeeper and set then
                         into dstzookeeper.
