@@ -189,15 +189,12 @@ class KafkaClient(object):
         # Convert Offsets to timestamp
         old_kafka_offsets = self.zk_offsets_to_kafka_offsets(old_zk_offsets,
                                                              self.topic)
-        if False:
-            timestamps = self.convert_offsets_to_timestamp(
-                self.topic, old_kafka_offsets, self.src_kafka_hosts)
+        timestamps = self.convert_offsets_to_timestamp(
+            self.topic, old_kafka_offsets, self.src_kafka_hosts)
         # Get offsets from dst kafka
-            new_kafka_offsets = self.convert_timestamp_to_offsets(
-                self.group_id, self.topic, timestamps, self.dst_kafka_hosts)
-        else:
-            new_kafka_offsets = old_kafka_offsets
+        new_kafka_offsets = self.convert_timestamp_to_offsets(
+            self.group_id, self.topic, timestamps, self.dst_kafka_hosts)
+
         # Load offsets into dst kafka
         self.set_offsets_into_kafka(new_kafka_offsets, self.group_id,
                                     self.topic, self.dst_kafka_hosts)
-
