@@ -95,7 +95,7 @@ def main():
     client = KafkaClient(group_id, topic, src_kafka_hosts, dst_kafka_hosts,
                      src_zk_hosts, dst_zk_hosts)
     if opts.action == 'k2k':
-        client.kafka_to_kakfa()
+        client.kafka_to_kafka()
     elif opts.action == 'z2k':
         client.zk_to_kafka()
     elif opts.action == 'z2z':

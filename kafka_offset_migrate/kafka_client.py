@@ -152,7 +152,7 @@ class KafkaClient(object):
         consumer.commit(offset_and_metadata)
         consumer.close()
 
-    def kafka_to_kakfa(self):
+    def kafka_to_kafka(self):
         # Get offsets from src kafka
         old_kafka_offsets = self.get_offsets_from_kafka(self.group_id,
                                                         self.topic,
