@@ -13,18 +13,18 @@ def parse_command_line():
                                                  'offsets between kafkas.')
 
     parser.add_argument('-s', '--src-kafka', default='localhost:9092',
-                        help='The kafka adresse list from where get ofssets.')
+                        help='The kafka address list from where get offsets.')
 
     parser.add_argument('-d', '--dst-kafka', default=None,
-                        help='The kafka adresse list to where put ofssets.')
+                        help='The kafka address list to where put offsets.')
 
     parser.add_argument('-i', '--src-zk', default='localhost:2181',
-                        help='The zookeeper adresse list from where get '
-                             'ofssets.')
+                        help='The zookeeper address list from where get '
+                             'offsets.')
 
     parser.add_argument('-o', '--dst-zk', default=None,
-                        help='The zookeeper adresse list to where put '
-                             'ofssets.')
+                        help='The zookeeper address list to where put '
+                             'offsets.')
 
     parser.add_argument('-t', '--topic', default=None,
                         help='Topic that owns the data.')

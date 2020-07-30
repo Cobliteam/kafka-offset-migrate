@@ -19,7 +19,7 @@ Simple tool to migrate offsets between kafkas.
 
 positional arguments:
   {k2k,z2z,z2k}         sub-command help
-    k2k                 k2k will fetch offsets from src kafka and set then
+    k2k                 k2k will fetch offsetsi from src kafka and set then
                         into dstkafka.
     z2z                 z2z will fetch offsets from src zookeeper and set then
                         into dstzookeeper.
@@ -31,11 +31,11 @@ optional arguments:
   -s SRC_KAFKA, --src-kafka SRC_KAFKA
                         The kafka address list from where get offsets.
   -d DST_KAFKA, --dst-kafka DST_KAFKA
-                        The kafka adresse list to where put ofssets.
+                        The kafka address list to where put offsets.
   -i SRC_ZK, --src-zk SRC_ZK
-                        The zookeeper adresse list from where get ofssets.
+                        The zookeeper address list from where get offsets.
   -o DST_ZK, --dst-zk DST_ZK
-                        The zookeeper adresse list to where put ofssets.
+                        The zookeeper address list to where put offsets.
   -t TOPIC, --topic TOPIC
                         Topic that owns the data.
   -g GROUP, --group GROUP
