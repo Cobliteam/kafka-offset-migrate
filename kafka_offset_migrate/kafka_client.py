@@ -56,7 +56,8 @@ class KafkaClient(object):
                 try:
                     msg = next(consumer)
                 except (StopIteration, OffsetOutOfRangeError) as err:
-                    print("Message does not exist: {}".format(err))
+                    error_msg = "Message does not exists in host <{}>: <{}>"
+                    logger.error(error_msg.format(kafka_hosts, err))
                 else:
                     timestamps[tp] = msg.timestamp
             else:
@@ -146,7 +147,7 @@ class KafkaClient(object):
             tp: kafka.OffsetAndMetadata(offset.offset, b'') for
             tp, offset in kafka_offsets.items()}
 
-        print(offset_and_metadata)
+        logger.debug("Offsets to commit: <{}>".format(offset_and_metadata))
 
         consumer.topics()
         consumer.commit(offset_and_metadata)
