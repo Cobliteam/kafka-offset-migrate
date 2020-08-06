@@ -32,6 +32,9 @@ def parse_command_line():
     parser.add_argument('-g', '--group', default=None,
                         help='Group that owns the offset.')
 
+    parser.add_argument('-7', '--offset', default=500,
+                        help='offset to set in 7o7')
+
     cmds = parser.add_subparsers(help='sub-command help')
 
 
@@ -59,6 +62,13 @@ def parse_command_line():
 
     zk_to_kafka_cmd.set_defaults(action='z2k')
 
+    ## 7o7
+    set_offset_cmd = cmds.add_parser('7o7',
+                                      help='7o7 will set 500 as  offset for '
+                                           'every partition in this consumer '
+                                           'group.')
+    set_offset_cmd.set_defaults(action='7o7')
+
 
     opts = parser.parse_args()
 
@@ -69,7 +79,7 @@ def parse_command_line():
 
     if getattr(opts, 'action', None) is None:
         logger.error("Missing operation. You must choose one of "
-                     "{z2z, k2k, z2k}")
+                     "{z2z, k2k, z2k, 7o7}")
         parser.print_help()
         sys.exit(1)
 
@@ -91,6 +101,7 @@ def main():
     dst_zk_hosts = getattr(opts, 'dst_zk', None)
     group_id = getattr(opts, 'group', None)
     topic = getattr(opts, 'topic', None)
+    offset = int(getattr(opts, 'offset', 500))
 
     client = KafkaClient(group_id, topic, src_kafka_hosts, dst_kafka_hosts,
                      src_zk_hosts, dst_zk_hosts)
@@ -100,5 +111,7 @@ def main():
         client.zk_to_kafka()
     elif opts.action == 'z2z':
         client.zk_to_zk()
+    elif opts.action == '7o7':
+        client.set_offset_value(offset)
     else:
         raise NotImplementedError

@@ -199,3 +199,46 @@ class KafkaClient(object):
         # Load offsets into dst kafka
         self.set_offsets_into_kafka(new_kafka_offsets, self.group_id,
                                     self.topic, self.dst_kafka_hosts)
+
+    def create_topic(self):
+        from kafka.admin import KafkaAdminClient, NewTopic
+
+
+        admin_client = KafkaAdminClient(
+            bootstrap_servers="localhost:9092",
+            client_id='test'
+        )
+
+        topic_list = []
+        topic_list.append(NewTopic(name="test", num_partitions=5, replication_factor=1))
+        admin_client.create_topics(new_topics=topic_list, validate_only=False)
+
+    def set_offset_value(self, value):
+        consumer = kafka.KafkaConsumer(
+            bootstrap_servers=self.dst_kafka_hosts,
+            group_id=self.group_id,
+            enable_auto_commit=False
+        )
+
+        consumer.topics()
+        partitions = consumer.partitions_for_topic(self.topic)
+        topic_partition = map(
+            lambda p: kafka.TopicPartition(self.topic, p),
+            partitions)
+        kafka_offsets = {tp: consumer.committed(tp) for tp in topic_partition}
+
+        logger.info("kafka_offsets: <{}>".format(kafka_offsets))
+
+        for tp, offset in kafka_offsets.items():
+            logger.info("tp: <{}>, offset: <{}>".format(tp, offset))
+            logger.info("type: <{}>".format(type(offset)))
+
+        new_kafka_offsets = {}
+        for tp, offset in kafka_offsets.items():
+            new_kafka_offsets[tp] = kafka.OffsetAndMetadata(value, None)
+
+        logger.info("new_kafka_offsets: <{}>".format(new_kafka_offsets))
+
+        # Load offsets into dst kafka
+        self.set_offsets_into_kafka(new_kafka_offsets, self.group_id,
+                                    self.topic, self.dst_kafka_hosts)
